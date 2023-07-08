@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Prisoner's Dilemma</title>
+  <style>
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button id="cooperateBtn">Cooperate</button>
+    <button id="betrayBtn">Betray</button>
+  </div>
+
+  <script>
+    // Function to calculate the payoffs based on player decisions
+    function calculatePayoffs(player1Decision, player2Decision) {
+      const betrayPayoff = 0;       // Payoff when one player betrays the other
+      const cooperatePayoff = 2;    // Payoff when both players cooperate
+      const mutualBetrayalPayoff = 1;  // Payoff when both players betray each other
+
+      if (player1Decision && player2Decision) {
+        return [mutualBetrayalPayoff, mutualBetrayalPayoff];
+      } else if (player1Decision && !player2Decision) {
+        return [betrayPayoff, cooperatePayoff];
+      } else if (!player1Decision && player2Decision) {
+        return [cooperatePayoff, betrayPayoff];
+      } else {
+        return [cooperatePayoff, cooperatePayoff];
+      }
+    }
+
+    // Event listeners for button clicks
+    document.getElementById("cooperateBtn").addEventListener("click", function() {
+      playGame(false);
+    });
+
+    document.getElementById("betrayBtn").addEventListener("click", function() {
+      playGame(true);
+    });
+
+    // Function to simulate the game and display the payoffs
+    function playGame(player1Decision) {
+      const player2Decision = Math.random() < 0.5; // Random decision for player 2
+
+      const [player1Payoff, player2Payoff] = calculatePayoffs(player1Decision, player2Decision);
+
+      alert("Player 1 payoff: " + player1Payoff + "\nPlayer 2 payoff: " + player2Payoff);
+    }
+  </script>
+</body>
+</html>

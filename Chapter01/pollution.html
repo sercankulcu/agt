@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pollution Game</title>
+  <style>
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 10px;
+    }
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button id="factoryA">Factory A: Adopt Eco-friendly Practices</button>
+    <button id="factoryB">Factory B: Adopt Eco-friendly Practices</button>
+  </div>
+
+  <div id="result"></div>
+
+  <script>
+    // Function to calculate the payoffs based on factory decisions
+    function calculatePayoffs(factoryADecision, factoryBDecision) {
+      const cooperationPayoff = "Both Factories Benefit";
+      const freeRidingPayoff = "Factory B Benefits, Factory A Incurs Higher Costs";
+
+      if (factoryADecision && factoryBDecision) {
+        return cooperationPayoff;
+      } else if (factoryADecision && !factoryBDecision) {
+        return freeRidingPayoff;
+      } else if (!factoryADecision && factoryBDecision) {
+        return freeRidingPayoff;
+      } else {
+        return "Both Factories Continue Polluting";
+      }
+    }
+
+    // Event listeners for button clicks
+    document.getElementById("factoryA").addEventListener("click", function() {
+      playGame(true, false);
+    });
+
+    document.getElementById("factoryB").addEventListener("click", function() {
+      playGame(false, true);
+    });
+
+    // Function to simulate the game and display the payoffs
+    function playGame(factoryADecision, factoryBDecision) {
+      const resultDiv = document.getElementById("result");
+      const payoff = calculatePayoffs(factoryADecision, factoryBDecision);
+      resultDiv.innerHTML = "Result: " + payoff;
+    }
+  </script>
+</body>
+</html>

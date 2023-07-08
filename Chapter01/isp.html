@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ISP Routing Game</title>
+  <style>
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 10px;
+    }
+    #result {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button id="routeA">Route through A</button>
+    <button id="routeB">Route through B</button>
+  </div>
+
+  <div id="result"></div>
+
+  <script>
+    // Function to calculate the payoffs based on routing decisions
+    function calculatePayoffs(routeA, routeB) {
+      const highPerformance = "High Performance";
+      const mediumPerformance = "Medium Performance";
+      const lowPerformance = "Low Performance";
+
+      if (routeA && routeB) {
+        return [highPerformance, highPerformance];
+      } else if (routeA && !routeB) {
+        return [highPerformance, lowPerformance];
+      } else if (!routeA && routeB) {
+        return [lowPerformance, highPerformance];
+      } else {
+        return [mediumPerformance, mediumPerformance];
+      }
+    }
+
+    // Event listeners for button clicks
+    document.getElementById("routeA").addEventListener("click", function() {
+      playGame(true);
+    });
+
+    document.getElementById("routeB").addEventListener("click", function() {
+      playGame(false);
+    });
+
+    // Function to simulate the game and display the payoffs
+    function playGame(routeA) {
+      const routeB = Math.random() < 0.5; // Random decision for ISP B
+
+      const [payoffA, payoffB] = calculatePayoffs(routeA, routeB);
+
+      const resultDiv = document.getElementById("result");
+      resultDiv.innerHTML = "ISP A: " + payoffA + "<br>ISP B: " + payoffB;
+    }
+  </script>
+</body>
+</html>

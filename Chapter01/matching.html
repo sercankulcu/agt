@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Matching Pennies Game</title>
+  <style>
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 10px;
+    }
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button id="heads">Heads</button>
+    <button id="tails">Tails</button>
+  </div>
+
+  <div id="result"></div>
+
+  <script>
+    // Function to calculate the payoffs based on chosen sides
+    function calculatePayoffs(playerAChoice, playerBChoice) {
+      if (playerAChoice === playerBChoice) {
+        return { playerAPayoff: 1, playerBPayoff: -1 };
+      } else {
+        return { playerAPayoff: -1, playerBPayoff: 1 };
+      }
+    }
+
+    // Event listeners for button clicks
+    document.getElementById("heads").addEventListener("click", function() {
+      playGame("heads");
+    });
+
+    document.getElementById("tails").addEventListener("click", function() {
+      playGame("tails");
+    });
+
+    // Function to simulate the game and display the payoffs
+    function playGame(playerAChoice) {
+      const playerBChoice = Math.random() < 0.5 ? "heads" : "tails"; // Random decision for Player B
+
+      const { playerAPayoff, playerBPayoff } = calculatePayoffs(playerAChoice, playerBChoice);
+
+      const resultDiv = document.getElementById("result");
+      resultDiv.innerHTML = "Player A's payoff: " + playerAPayoff + "<br>Player B's payoff: " + playerBPayoff;
+    }
+  </script>
+</body>
+</html>

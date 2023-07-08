@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Battle of the Sexes</title>
+  <style>
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 10px;
+    }
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button id="alexConcert">Alex: Concert</button>
+    <button id="alexMovie">Alex: Movie</button>
+  </div>
+
+  <div id="result"></div>
+
+  <script>
+    // Function to calculate the payoffs based on chosen activities
+    function calculatePayoffs(alexChoice, samChoice) {
+      if (alexChoice === "concert" && samChoice === "concert") {
+        return { alexPayoff: 3, samPayoff: 2 };
+      } else if (alexChoice === "concert" && samChoice === "movie") {
+        return { alexPayoff: 0, samPayoff: 0 };
+      } else if (alexChoice === "movie" && samChoice === "concert") {
+        return { alexPayoff: 2, samPayoff: 3 };
+      } else {
+        return { alexPayoff: 0, samPayoff: 0 };
+      }
+    }
+
+    // Event listeners for button clicks
+    document.getElementById("alexConcert").addEventListener("click", function() {
+      playGame("concert");
+    });
+
+    document.getElementById("alexMovie").addEventListener("click", function() {
+      playGame("movie");
+    });
+
+    // Function to simulate the game and display the payoffs
+    function playGame(alexChoice) {
+      const samChoice = Math.random() < 0.5 ? "concert" : "movie"; // Random decision for Sam
+
+      const { alexPayoff, samPayoff } = calculatePayoffs(alexChoice, samChoice);
+
+      const resultDiv = document.getElementById("result");
+      resultDiv.innerHTML = "Alex's payoff: " + alexPayoff + "<br>Sam's payoff: " + samPayoff;
+    }
+  </script>
+</body>
+</html>

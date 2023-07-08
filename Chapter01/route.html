@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Routing Game</title>
+  <style>
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 10px;
+    }
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button id="route1">Route 1</button>
+    <button id="route2">Route 2</button>
+  </div>
+
+  <div id="result"></div>
+
+  <script>
+    // Function to calculate the payoffs based on routing decisions
+    function calculatePayoffs(route1, route2) {
+      const highPerformance = "High Performance";
+      const mediumPerformance = "Medium Performance";
+      const lowPerformance = "Low Performance";
+
+      if (route1 && route2) {
+        return [highPerformance, highPerformance];
+      } else if (route1 && !route2) {
+        return [highPerformance, lowPerformance];
+      } else if (!route1 && route2) {
+        return [lowPerformance, highPerformance];
+      } else {
+        return [mediumPerformance, mediumPerformance];
+      }
+    }
+
+    // Event listeners for button clicks
+    document.getElementById("route1").addEventListener("click", function() {
+      playGame(true, false);
+    });
+
+    document.getElementById("route2").addEventListener("click", function() {
+      playGame(false, true);
+    });
+
+    // Function to simulate the game and display the payoffs
+    function playGame(route1, route2) {
+      const [payoff1, payoff2] = calculatePayoffs(route1, route2);
+
+      const resultDiv = document.getElementById("result");
+      resultDiv.innerHTML = "Route 1: " + payoff1 + "<br>Route 2: " + payoff2;
+    }
+  </script>
+</body>
+</html>

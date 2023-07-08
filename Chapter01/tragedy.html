@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>The Tragedy of the Commons</title>
+  <style>
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 10px;
+    }
+    #pasture {
+      width: 400px;
+      height: 300px;
+      border: 1px solid black;
+      background-color: #b3d7ff;
+    }
+    .animal {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: brown;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button id="addAnimal">Add Animal</button>
+  </div>
+
+  <div id="pasture"></div>
+
+  <script>
+    const pasture = document.getElementById("pasture");
+    const addAnimalBtn = document.getElementById("addAnimal");
+
+    const maxAnimals = 10; // Maximum number of animals allowed in the pasture
+    let animalCount = 0; // Current count of animals in the pasture
+
+    addAnimalBtn.addEventListener("click", function() {
+      if (animalCount < maxAnimals) {
+        addAnimal();
+      }
+    });
+
+    function addAnimal() {
+      const animal = document.createElement("div");
+      animal.className = "animal";
+      animal.style.left = getRandomPosition(pasture.offsetWidth - 20) + "px";
+      animal.style.top = getRandomPosition(pasture.offsetHeight - 20) + "px";
+
+      pasture.appendChild(animal);
+      animalCount++;
+
+      if (animalCount === maxAnimals) {
+        addAnimalBtn.disabled = true;
+        pasture.style.backgroundColor = "red";
+      }
+    }
+
+    function getRandomPosition(max) {
+      return Math.floor(Math.random() * max);
+    }
+  </script>
+</body>
+</html>
